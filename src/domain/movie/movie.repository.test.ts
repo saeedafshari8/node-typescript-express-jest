@@ -3,7 +3,7 @@ import fs from 'fs';
 import * as appRoot from 'app-root-path';
 import { defaultMovieRepository } from './movie.repository';
 
-describe('', () => {
+describe('movie-repository tests', () => {
   it('movieRepository is instantiated correctly', () => {
     expect(defaultMovieRepository).toBeTruthy();
   });

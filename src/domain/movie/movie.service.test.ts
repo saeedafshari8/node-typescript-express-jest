@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import * as appRoot from 'app-root-path';
 
-describe('', () => {
+describe('movie-service tests', () => {
   let movieService: MovieService;
 
   beforeEach(() => {

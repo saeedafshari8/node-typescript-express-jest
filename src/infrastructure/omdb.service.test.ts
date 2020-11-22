@@ -1,6 +1,6 @@
 import { OMDBService } from './omdb.service';
 
-describe('', () => {
+describe('omdb-service tests', () => {
   let omdbService: OMDBService;
 
   beforeEach(() => {
