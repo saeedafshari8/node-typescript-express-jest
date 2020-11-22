@@ -1,6 +1,7 @@
 import fs from 'fs';
 import log, { Logger } from 'loglevel';
 import * as path from 'path';
+import * as appRoot from 'app-root-path';
 
 export class MovieRepository {
   constructor(private repoPath: string, private logger: Logger = log.getLogger('movie-repository')) {}
@@ -30,3 +31,5 @@ export class MovieRepository {
     });
   }
 }
+
+export const defaultMovieRepository = new MovieRepository(path.join(appRoot.path, 'movies'));

@@ -26,7 +26,8 @@
     "axios": "^0.21.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "loglevel": "^1.7.0"
+    "loglevel": "^1.7.0",
+    "node-cache": "^5.1.2"
   },
   "husky": {
     "hooks": {
@@ -47,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "eslint": "^7.14.0",
+    "eslint-plugin-unused-imports": "^1.0.0",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.6",

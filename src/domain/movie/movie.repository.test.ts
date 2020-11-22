@@ -1,21 +1,15 @@
 import path from 'path';
 import fs from 'fs';
 import * as appRoot from 'app-root-path';
-import { MovieRepository } from './movie.repository';
+import { defaultMovieRepository } from './movie.repository';
 
 describe('', () => {
-  let movieRepository: MovieRepository;
-
-  beforeEach(() => {
-    movieRepository = new MovieRepository(path.join(appRoot.path, 'movies'));
-  });
-
   it('movieRepository is instantiated correctly', () => {
-    expect(movieRepository).toBeTruthy();
+    expect(defaultMovieRepository).toBeTruthy();
   });
 
   it('loads all movies from files correctly', async () => {
-    const movies = await movieRepository.getAll();
+    const movies = await defaultMovieRepository.getAll();
 
     expect(movies.length).toBe(4);
     ['3532674', '5979300', '11043689', '11528860'].forEach((id) => {
