@@ -5,6 +5,12 @@ export class OMDBService {
 
   async findByImdbId(imdbId: string): Promise<any> {
     const url = `https://www.omdbapi.com/?i=${imdbId}&apikey=${this.apiKey}&plot=full`;
-    return await http.default.get(url);
+    let res;
+    try {
+      res = await http.default.get(url);
+    } catch (err) {
+      throw new Error(`unable to fetch data from imdb api with imdbId=${imdbId}`);
+    }
+    return res.data;
   }
 }
