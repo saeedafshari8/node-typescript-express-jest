@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/joyn-engineering/movie-metadata-service-saeedafshari8/issues"
   },
-  "homepage": "https://github.com/joyn-engineering/movie-metadata-service-saeedafshari8#readme"
+  "homepage": "https://github.com/joyn-engineering/movie-metadata-service-saeedafshari8#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
 }
