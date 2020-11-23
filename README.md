@@ -121,3 +121,10 @@ This command prettifies and checks the source files styling.
 ## npm run lint
 
 This command runs all unit tests and creates code coverage reports inside coverage folder.
+
+## APIs
+
+You can query data using the following end points:
+
+- http://localhost:8000/api/movies/:id
+- http://localhost:8000/api/movies?<search_field>=<search value>

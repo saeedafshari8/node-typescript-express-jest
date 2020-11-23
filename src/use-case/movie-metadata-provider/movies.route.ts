@@ -25,7 +25,7 @@ moviesRouter.get('/:id', async (req, res) => {
   }
 });
 
-moviesRouter.get('/search/query', async (req, res) => {
+moviesRouter.get('', async (req, res) => {
   try {
     if (Object.keys(req.query).length === 0) {
       const movies = await movieMetadataService.findAllEnrichedMovies();
