@@ -88,8 +88,18 @@ export class MovieMetadataService {
     for (const localMovie of movies) {
       let flag = true;
       for (const key of Object.keys(params)) {
-        if (localMovie[key] != params[key]) {
+        const value = this.getValueFromObjectInsensitive(localMovie, key);
+        if (value === null) {
           flag = false;
+          break;
+        }
+        if (Array.isArray(value) && !value.includes(params[key])) {
+          flag = false;
+          break;
+        }
+        if (!Array.isArray(value) && value.toString().toLowerCase() != params[key].toLowerCase()) {
+          flag = false;
+          break;
         }
       }
       if (flag) {
@@ -97,5 +107,13 @@ export class MovieMetadataService {
       }
     }
     return enrichedMovies;
+  }
+
+  private getValueFromObjectInsensitive(localMovie: any, key: string) {
+    const index = Object.keys(localMovie).find((item) => item.toLowerCase() === key.toLowerCase());
+    if (!index) {
+      return null;
+    }
+    return localMovie[index];
   }
 }

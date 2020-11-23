@@ -236,7 +236,11 @@ describe('movie-metadata-service tests', () => {
     omdbService.findByImdbId = (imdbId) =>
       new Promise<any>((resolve) => resolve(imdbId === '1234' ? mockImdbMovie1 : mockImdbMovie2));
 
-    const enrichedMetadata = await movieMetadataService.searchEnrichedMovies({ id: 1, Runtime: 'Runtime1' });
+    const enrichedMetadata = await movieMetadataService.searchEnrichedMovies({
+      id: '1',
+      Runtime: 'Runtime1',
+      Actors: 'George Lucas'
+    });
 
     expect(enrichedMetadata).toEqual([
       {
@@ -247,5 +251,85 @@ describe('movie-metadata-service tests', () => {
         Actors: ['George Lucas', 'Quentin Tarantino']
       }
     ]);
+  });
+
+  it('searchEnrichedMovies should return only filtered enriched movies insensitive case', async () => {
+    const mockMovie1 = {
+      id: 1,
+      imdbId: '1234',
+      title: 'local-movie'
+    };
+    const mockMovie2 = {
+      id: 2,
+      imdbId: '1235',
+      title: 'local-movie'
+    };
+    const mockImdbMovie1 = {
+      id: 1,
+      imdbId: '1234',
+      Runtime: 'Runtime1',
+      Actors: 'George Lucas,Quentin Tarantino'
+    };
+    const mockImdbMovie2 = {
+      id: 2,
+      imdbId: '1235',
+      Runtime: 'Runtime2',
+      Actors: 'George Lucas,Quentin Tarantino'
+    };
+    movieService.findMovieById = (id) => (id === 1 ? mockMovie1 : mockMovie2);
+    movieService.getAll = () => [mockMovie1, mockMovie2];
+    omdbService.findByImdbId = (imdbId) =>
+      new Promise<any>((resolve) => resolve(imdbId === '1234' ? mockImdbMovie1 : mockImdbMovie2));
+
+    const enrichedMetadata = await movieMetadataService.searchEnrichedMovies({
+      iD: '1',
+      RUNTIME: 'Runtime1',
+      ActorS: 'George Lucas'
+    });
+
+    expect(enrichedMetadata).toEqual([
+      {
+        id: 1,
+        imdbId: '1234',
+        title: 'local-movie',
+        Runtime: 'Runtime1',
+        Actors: ['George Lucas', 'Quentin Tarantino']
+      }
+    ]);
+  });
+
+  it('searchEnrichedMovies should not return any value as search key not found', async () => {
+    const mockMovie1 = {
+      id: 1,
+      imdbId: '1234',
+      title: 'local-movie'
+    };
+    const mockMovie2 = {
+      id: 2,
+      imdbId: '1235',
+      title: 'local-movie'
+    };
+    const mockImdbMovie1 = {
+      id: 1,
+      imdbId: '1234',
+      Runtime: 'Runtime1',
+      Actors: 'George Lucas,Quentin Tarantino'
+    };
+    const mockImdbMovie2 = {
+      id: 2,
+      imdbId: '1235',
+      Runtime: 'Runtime2',
+      Actors: 'George Lucas,Quentin Tarantino'
+    };
+    movieService.findMovieById = (id) => (id === 1 ? mockMovie1 : mockMovie2);
+    movieService.getAll = () => [mockMovie1, mockMovie2];
+    omdbService.findByImdbId = (imdbId) =>
+      new Promise<any>((resolve) => resolve(imdbId === '1234' ? mockImdbMovie1 : mockImdbMovie2));
+
+    const enrichedMetadata = await movieMetadataService.searchEnrichedMovies({
+      unknown: '1'
+    });
+
+    expect(enrichedMetadata).toEqual([]);
   });
 });
