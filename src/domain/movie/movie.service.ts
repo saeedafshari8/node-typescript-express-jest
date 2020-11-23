@@ -17,6 +17,10 @@ export class MovieService {
     return movie;
   }
 
+  getAll(): any[] {
+    return this.tryCacheMovies();
+  }
+
   private tryCacheMovies(): any[] {
     const cacheName = 'movies';
     let movies = this.cacheManager.get<any[]>(cacheName);

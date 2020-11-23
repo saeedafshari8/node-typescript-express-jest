@@ -25,4 +25,19 @@ moviesRouter.get('/:id', async (req, res) => {
   }
 });
 
+moviesRouter.get('/search/query', async (req, res) => {
+  try {
+    if (Object.keys(req.query).length === 0) {
+      const movies = await movieMetadataService.findAllEnrichedMovies();
+      return res.status(200).send(movies);
+    }
+    const movies = await movieMetadataService.searchEnrichedMovies(req.query);
+    return res.status(200).send(movies);
+  } catch (err) {
+    return res
+      .status(500)
+      .send(`at the moment the specified service is not available. Please try again later. ${err.message}`);
+  }
+});
+
 export { moviesRouter };
